@@ -1,0 +1,10 @@
+.productListContainer{
+    display: flex;
+    width: 100rem;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    padding: 10px;
+
+}
+
