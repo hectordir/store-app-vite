@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 
 export default function ProductsList() {
   const [datos, setDatos] = useState<Producto[]>([]);
+  const [count, setCount] = useState(0);
 
   async function getData() {
     try {
@@ -25,6 +26,11 @@ export default function ProductsList() {
   function descuento(price: number, discountPercentage: number) {
     const descuento = price * (discountPercentage / 100);
     return price - descuento;
+  }
+
+  function sumar() {
+    setCount(count + 1);
+    console.log(count);
   }
 
   return (
@@ -53,7 +59,9 @@ export default function ProductsList() {
                 ).toString()}
               </h5>
             </div>
-            <button className="boton">Añadir</button>
+            <button onClick={sumar} className="boton">
+              Añadir
+            </button>
           </div>
         ))}
       </div>

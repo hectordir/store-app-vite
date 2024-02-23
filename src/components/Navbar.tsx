@@ -1,8 +1,10 @@
 import { NavLink } from "react-router-dom";
 import carrito from "../img/carrito.png";
 import logo from "../img/logo.png";
+import count from "./ProductsList";
 
 export default function Navbar() {
+  console.log(count);
   return (
     <nav className="navbar bg-primary">
       <div className="container">
@@ -21,6 +23,7 @@ export default function Navbar() {
           About
         </NavLink>
         <NavLink to="/cart" className="navbar-brand">
+          <p style={{ paddingLeft: "50px" }}>0</p>
           <img
             src={carrito}
             alt="carrito"

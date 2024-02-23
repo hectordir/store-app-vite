@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Producto } from "../interfaces/productos";
 import Styles from "./styles/ProductPage.module.css";
+import Rating from "../components/Rating";
 
 export default function ProductsPage() {
   const { id, brand, category } = useParams<{
@@ -56,7 +57,9 @@ export default function ProductsPage() {
           <p>Descripcion : {datos?.description}</p>
           <p>Marca : {datos?.brand}</p>
           <p>Categoria : {datos?.category}</p>
-          <p>Rating : {datos?.rating}</p>
+          <div>
+            <Rating value={datos?.rating?.toString() ?? ""} />
+          </div>
           <del>Precio : {datos?.price}</del>
           <p>
             Precio con descuento :{" "}
