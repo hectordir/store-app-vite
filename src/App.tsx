@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ProductsList from "./components/ProductsList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
@@ -8,8 +9,17 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductPage";
 import BrandPage from "./pages/BrandPage";
 import CategoryPage from "./pages/CategoryPage";
+import { useEffect } from "react";
+import { useCart } from "./state/useCart";
 
 export function App() {
+  const { syncCart } = useCart();
+  useEffect(() => {
+    const cart = localStorage.getItem("cart");
+    if (cart) {
+      syncCart(JSON.parse(cart));
+    }
+  }, []);
   return (
     <BrowserRouter>
       <Navbar />

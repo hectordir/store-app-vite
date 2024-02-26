@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import Styles from "./ProductsList.module.css";
 import { NavLink } from "react-router-dom";
 import Rating from "./Rating";
+import { useCart } from "../state/useCart";
 
 export default function ProductsList() {
   const [datos, setDatos] = useState<Producto[]>([]);
-  const [count, setCount] = useState(0);
+  const { handleAddCart } = useCart();
 
   async function getData() {
     try {
@@ -29,11 +30,6 @@ export default function ProductsList() {
     return price - descuento;
   }
 
-  function sumar() {
-    setCount(count + 1);
-    console.log(count);
-  }
-
   return (
     <div className="bg-dark file">
       <div className={Styles.productListContainer}>
@@ -42,7 +38,7 @@ export default function ProductsList() {
             <NavLink to={`/products/${producto.id}`}>
               <img src={producto.thumbnail} alt="product" className="imagen" />
             </NavLink>
-            
+
             <NavLink to={`/products/category/${producto.category}`}>
               <p className="category">{producto.category}</p>
             </NavLink>
@@ -50,9 +46,8 @@ export default function ProductsList() {
               <h2 className="title">{producto.title}</h2>
             </NavLink>
             <div>
-            <Rating value={
-                Number(producto.rating.toFixed(0))} />
-          </div>
+              <Rating value={Number(producto.rating.toFixed(0))} />
+            </div>
             <NavLink to={`/products/brand/${producto.brand}`}>
               <h4 className="sub">{producto.brand}</h4>
             </NavLink>
@@ -65,7 +60,7 @@ export default function ProductsList() {
                 ).toString()}
               </h5>
             </div>
-            <button onClick={sumar} className="boton">
+            <button onClick={() => handleAddCart(producto)} className="boton">
               Añadir
             </button>
           </div>
