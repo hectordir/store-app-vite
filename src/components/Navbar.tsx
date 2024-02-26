@@ -2,12 +2,14 @@ import { NavLink } from "react-router-dom";
 import carrito from "../img/carrito.png";
 import logo from "../img/logo.png";
 import { useCart } from "../state/useCart";
+import { EmailInput } from "./EmailInput";
 
 export default function Navbar() {
   const { count } = useCart();
 
   return (
     <nav className="navbar bg-primary">
+      <EmailInput />
       <div className="container">
         <NavLink to="/" className="navbar-brand">
           <img

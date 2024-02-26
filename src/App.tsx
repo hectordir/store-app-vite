@@ -11,13 +11,19 @@ import BrandPage from "./pages/BrandPage";
 import CategoryPage from "./pages/CategoryPage";
 import { useEffect } from "react";
 import { useCart } from "./state/useCart";
+import { useEmail } from "./state/useEmail";
 
 export function App() {
   const { syncCart } = useCart();
+  const { setEmail } = useEmail();
   useEffect(() => {
     const cart = localStorage.getItem("cart");
     if (cart) {
       syncCart(JSON.parse(cart));
+    }
+    const email = localStorage.getItem("email");
+    if (email) {
+      setEmail(email);
     }
   }, []);
   return (
