@@ -5,20 +5,15 @@ import Styles from "./ProductsList.module.css";
 import { NavLink } from "react-router-dom";
 import Rating from "./Rating";
 import { useCart } from "../state/useCart";
+import { getProducts } from "../bff-utils";
 
 export default function ProductsList() {
   const [datos, setDatos] = useState<Producto[]>([]);
   const { handleAddCart } = useCart();
 
   async function getData() {
-    try {
-      const res = await axios.get("https://dummyjson.com/products");
-      const data = res.data;
-      const productos = data.products;
-      setDatos(productos);
-    } catch (error) {
-      console.error("Error fetching data", error);
-    }
+    const productos = await getProducts();
+    setDatos(productos);
   }
 
   useEffect(() => {
