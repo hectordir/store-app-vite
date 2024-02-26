@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Styles from "./ProductsList.module.css";
 import { NavLink } from "react-router-dom";
+import Rating from "./Rating";
 
 export default function ProductsList() {
   const [datos, setDatos] = useState<Producto[]>([]);
@@ -41,12 +42,17 @@ export default function ProductsList() {
             <NavLink to={`/products/${producto.id}`}>
               <img src={producto.thumbnail} alt="product" className="imagen" />
             </NavLink>
+            
             <NavLink to={`/products/category/${producto.category}`}>
               <p className="category">{producto.category}</p>
             </NavLink>
             <NavLink to={`/products/${producto.id}`}>
               <h2 className="title">{producto.title}</h2>
             </NavLink>
+            <div>
+            <Rating value={
+                Number(producto.rating.toFixed(0))} />
+          </div>
             <NavLink to={`/products/brand/${producto.brand}`}>
               <h4 className="sub">{producto.brand}</h4>
             </NavLink>
