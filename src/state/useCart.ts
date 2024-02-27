@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Producto } from "../interfaces/productos";
+import { Producto } from "../interfaces/productos"; // Add missing import statement for "Producto" interface
 
 type Cart = {
   count: number;
@@ -7,6 +7,7 @@ type Cart = {
   handleAddCart: (product: Producto) => void;
   handleDeleteCart: (id: number) => void;
   syncCart: (products: Producto[]) => void;
+  clearCart:()=> void
 };
 
 /**
@@ -36,13 +37,33 @@ export const useCart = create<Cart>((set) => ({
   /**
    * Deletes a product from the cart.
    */
-  handleDeleteCart: (id) => {
-    console.log(`se elimino el producto con id ${id}`);
+  handleDeleteCart: (index: number) => {
+    set((state) => {
+      const deletedProducts = state.products;
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]')
+      if(cart && cart.length>0) {
+        cart.splice(index, 1)
+        localStorage.setItem('cart', JSON.stringify(cart))
+      }
+      const newCount = cart.length;
+      return { ...state, products: deletedProducts, count: newCount };
+    });
   },
   syncCart: (products) => {
     set((state) => {
       const newCount = products.length;
       return { ...state, products, count: newCount };
     });
+  },
+  clearCart: () => {
+    const cleanCart: string | never[] = [];
+    const cart = localStorage.getItem('cart');
+    if (cart !== null) {
+      localStorage.setItem('cart', cart);
+    }
+    localStorage.setItem('cart', JSON.stringify(cleanCart));
+    const newCount = cleanCart.length;
+
+    return{count:newCount}
   },
 }));

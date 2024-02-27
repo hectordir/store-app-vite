@@ -24,3 +24,4 @@ export const getProductbyId = async (id: number) => {
     return {} as Producto;
   }
 };
+

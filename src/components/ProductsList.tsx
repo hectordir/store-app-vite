@@ -1,5 +1,4 @@
 import { Producto } from "../interfaces/productos";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Styles from "./ProductsList.module.css";
 import { NavLink } from "react-router-dom";

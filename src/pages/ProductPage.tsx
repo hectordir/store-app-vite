@@ -5,6 +5,7 @@ import { Producto } from "../interfaces/productos";
 import Styles from "./styles/ProductPage.module.css";
 import Rating from "../components/Rating";
 import StarRating from "../components/StarRating";
+import { useCart } from "../state/useCart";
 
 export default function ProductsPage() {
   const { id, brand, category } = useParams<{
@@ -13,6 +14,8 @@ export default function ProductsPage() {
     category: string;
   }>();
   const [datos, setDatos] = useState<Producto | null>(null);
+
+  const { handleAddCart } = useCart();
 
   useEffect(() => {
     async function getData() {
@@ -59,9 +62,8 @@ export default function ProductsPage() {
           <p>Marca : {datos?.brand}</p>
           <p>Categoria : {datos?.category}</p>
           <div>
-            <StarRating rating={Number(datos?.rating.toFixed(0))}/>
-            <Rating value={
-                Number(datos?.rating.toFixed(0))} />
+            <StarRating rating={Number(datos?.rating.toFixed(0))} />
+            <Rating value={Number(datos?.rating.toFixed(0))} />
           </div>
           <del>Precio : {datos?.price}</del>
           <p>
@@ -70,7 +72,12 @@ export default function ProductsPage() {
               descuento(datos?.price ?? 0, datos?.discountPercentage ?? 0)
             ).toString()}
           </p>
-          <button className={Styles.button}>Añadir</button>
+          <button
+            className={Styles.button}
+            onClick={() => datos && handleAddCart(datos)}
+          >
+            Añadir
+          </button>
         </div>
       </div>
     </div>
