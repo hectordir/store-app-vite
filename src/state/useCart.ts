@@ -7,7 +7,7 @@ type Cart = {
   handleAddCart: (product: Producto) => void;
   handleDeleteCart: (id: number) => void;
   syncCart: (products: Producto[]) => void;
-  clearCart:()=> void
+  clearCart: () => void;
 };
 
 /**
@@ -40,10 +40,10 @@ export const useCart = create<Cart>((set) => ({
   handleDeleteCart: (index: number) => {
     set((state) => {
       const deletedProducts = state.products;
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]')
-      if(cart && cart.length>0) {
-        cart.splice(index, 1)
-        localStorage.setItem('cart', JSON.stringify(cart))
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      if (cart && cart.length > 0) {
+        cart.splice(index, 1);
+        localStorage.setItem("cart", JSON.stringify(cart));
       }
       const newCount = cart.length;
       return { ...state, products: deletedProducts, count: newCount };
@@ -56,14 +56,7 @@ export const useCart = create<Cart>((set) => ({
     });
   },
   clearCart: () => {
-    const cleanCart: string | never[] = [];
-    const cart = localStorage.getItem('cart');
-    if (cart !== null) {
-      localStorage.setItem('cart', cart);
-    }
-    localStorage.setItem('cart', JSON.stringify(cleanCart));
-    const newCount = cleanCart.length;
-
-    return{count:newCount}
+    localStorage.setItem("cart", JSON.stringify([]));
+    set({ count: 0, products: [] });
   },
 }));
