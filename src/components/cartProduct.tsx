@@ -1,13 +1,12 @@
-import { Producto } from "../interfaces/productos";
 import { useCart } from "../state/useCart";
 
 export default function CartProduct() {
   const { products, clearCart, handleDeleteCart } = useCart();
   return (
     <div>
-      {products.map((item: Producto, index: number) => (
+      {products.map((item, index) => (
         <div>
-          <p key={item.id}>{item.title}</p>
+          <p key={item.product.id}>{item.product.title}</p>
           <button onClick={() => handleDeleteCart(index)}>Eliminar</button>
         </div>
       ))}
