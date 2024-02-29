@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { Producto } from "../interfaces/productos";
 import Styles from "./styles/ProductPage.module.css";
 import Rating from "../components/Rating";
-import StarRating from "../components/StarRating";
 import { useCart } from "../state/useCart";
 
 export default function ProductsPage() {
@@ -62,7 +61,6 @@ export default function ProductsPage() {
           <p>Marca : {datos?.brand}</p>
           <p>Categoria : {datos?.category}</p>
           <div>
-            <StarRating rating={Number(datos?.rating.toFixed(0))} />
             <Rating value={Number(datos?.rating.toFixed(0))} />
           </div>
           <del>Precio : {datos?.price}</del>

@@ -11,7 +11,7 @@ type Cart = {
   products: GroupedProducts[];
   handleAddCart: (product: Producto) => void;
   handleDeleteCart: (id: number) => void;
-  syncCart: (products: Producto[]) => void;
+  syncCart: (products: GroupedProducts[]) => void;
   clearCart: () => void;
 };
 
@@ -88,6 +88,7 @@ export const useCart = create<Cart>((set) => ({
   syncCart: (products) => {
     set((state) => {
       const newCount = products.length;
+      console.log(state)
       return { ...state, products, count: newCount };
     });
   },

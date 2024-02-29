@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import ProductsList from "./components/ProductsList";
+import ProductsList from "./pages/ProductsList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";

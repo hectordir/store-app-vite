@@ -1,8 +1,8 @@
 import { Producto } from "../interfaces/productos";
 import { useEffect, useState } from "react";
-import Styles from "./ProductsList.module.css";
+import Styles from "./styles/ProductsList.module.css";
 import { NavLink } from "react-router-dom";
-import Rating from "./Rating";
+import Rating from "../components/Rating";
 import { useCart } from "../state/useCart";
 import { getProducts } from "../bff-utils";
 
