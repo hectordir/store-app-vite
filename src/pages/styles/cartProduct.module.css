@@ -1,14 +1,58 @@
 .body{
     color: white;
+
+}
+
+.block{
+    border: 1px solid white;
+    border-radius: 20px;
+    width: 63vw;
+    padding: 10px;
+    margin: 10px;
 }
 
 .img{
     padding: 10px;
-    width: 50px;
-    height: 50px;
+    width: 300px;
+    height: 200px;
+    float: left;
 }
 
 .info {
-    display: flex;
+    display: flow-root;
+    padding: 10px;
+    width: 230px;
+    height: 230px;
 }
 
+.button{
+    background-color: #8b8b8b;
+    padding: 10px 30px;
+    border-radius: 25px;
+    border: none;
+    margin-top: 20px;
+}
+
+
+.checkout{
+    background-color: #555555;
+    border-radius: 25px;
+    padding: 10px 30px 10px 30px;
+    float: right;
+    margin: 0px 20px 100% 30px;
+}
+.Total{
+    float: right;
+    width: 25vw;
+    height: auto;
+    margin: 10px;
+}
+.display{
+    display: none;
+
+}
+
+.trash{
+    width: 25px;
+    height: 30px;
+}
