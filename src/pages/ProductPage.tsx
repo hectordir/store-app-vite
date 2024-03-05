@@ -2,9 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Producto } from "../interfaces/productos";
-import Styles from "./styles/ProductPage.module.css";
 import Rating from "../components/Rating";
 import { useCart } from "../state/useCart";
+import { Box, VStack, Stack, Text } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/image";
+import { Button } from "@chakra-ui/button";
 
 export default function ProductsPage() {
   const { id, brand, category } = useParams<{
@@ -48,36 +50,38 @@ export default function ProductsPage() {
   }
 
   return (
-    <div className={Styles.body}>
-      <div className={Styles.body2}>
-        <div className={Styles.id}>
-          <p>Producto Numero : #{id}</p>
-        </div>
-
-        <div style={{ color: "white" }}>
-          <img src={datos?.thumbnail} alt="Iphone 9" className={Styles.image} />
-          <p className={Styles.title}>{datos?.title}</p>
-          <p>Descripcion : {datos?.description}</p>
-          <p>Marca : {datos?.brand}</p>
-          <p>Categoria : {datos?.category}</p>
-          <div>
-            <Rating value={Number(datos?.rating.toFixed(0))} />
-          </div>
-          <del>Precio : {datos?.price}</del>
-          <p>
-            Precio con descuento :{" "}
-            {Math.floor(
-              descuento(datos?.price ?? 0, datos?.discountPercentage ?? 0)
-            ).toString()}
-          </p>
-          <button
-            className={Styles.button}
-            onClick={() => datos && handleAddCart(datos)}
-          >
-            Añadir
-          </button>
-        </div>
-      </div>
-    </div>
+    <>
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        spacing={4}
+        justifyContent="center"
+        backgroundColor="#333333"
+      >
+        <VStack bg="#555555" p="5px 50px 5px">
+          <Text>Producto Numero : #{id}</Text>
+          <Box color="white">
+            <Image src={datos?.thumbnail} alt="Iphone 9" />
+            <Text>{datos?.title}</Text>
+            <Text>Descripcion : {datos?.description}</Text>
+            <Text>Marca : {datos?.brand}</Text>
+            <Text>Categoria : {datos?.category}</Text>
+            <Box>
+              <Rating value={Number(datos?.rating.toFixed(0))} />
+            </Box>
+            <Text as="del">Precio : {datos?.price}</Text>
+            <Text>
+              Precio con descuento :{" "}
+              {Math.floor(
+                descuento(datos?.price ?? 0, datos?.discountPercentage ?? 0)
+              ).toString()}
+            </Text>
+            <Button onClick={() => datos && handleAddCart(datos)}>
+              Añadir
+            </Button>
+          </Box>
+        </VStack>
+      </Stack>
+    </>
   );
 }
