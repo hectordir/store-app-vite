@@ -5,6 +5,15 @@ import { NavLink } from "react-router-dom";
 import Rating from "../components/Rating";
 import { useCart } from "../state/useCart";
 import { getProducts } from "../bff-utils";
+import {
+  Box,
+  Card,
+  CardBody,
+  CardHeader,
+  Image,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 
 export default function ProductsList() {
   const [datos, setDatos] = useState<Producto[]>([]);
@@ -25,7 +34,29 @@ export default function ProductsList() {
   }
 
   return (
-    <div className="bg-dark file">
+    <>
+      {datos.map((producto: Producto) => (
+        <Box>
+          <Card maxW="sm">
+            <CardHeader>
+              <Text>{producto.title}</Text>
+            </CardHeader>
+            <CardBody>
+              <Image
+                src={producto.thumbnail}
+                alt={producto.title}
+                borderRadius="lg"
+              />
+              <Stack mt="6" spacing="3"></Stack>
+            </CardBody>
+          </Card>
+        </Box>
+      ))}
+    </>
+  );
+}
+/* 
+<div className="bg-dark file">
       <div className={Styles.productListContainer}>
         {datos.map((producto: Producto) => (
           <div key={producto.id} className="cartas card">
@@ -61,5 +92,4 @@ export default function ProductsList() {
         ))}
       </div>
     </div>
-  );
-}
+*/
