@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Styles from "./Totalitems.module.css";
-import { useCart } from "../state/useCart";
+import { useCart } from "../../states/useCart";
 export default function TotalItems() {
   const [number, setnumber] = useState<number>(1);
   const { handleAddCart, products } = useCart();

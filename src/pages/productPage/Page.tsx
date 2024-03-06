@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Producto } from "../interfaces/productos";
-import Rating from "../components/Rating";
-import { useCart } from "../state/useCart";
+import { Producto } from "../../interfaces/productos";
+import Rating from "../../components/Rating/Rating";
+import { useCart } from "../../states/useCart";
 import { Box, VStack, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { Button } from "@chakra-ui/button";
-import { ContentLayout } from "../components/BasePage";
+import { ContentLayout } from "../../components/BasePage";
+import { discount } from "../../bff-utils";
 
 export default function ProductsPage() {
   const { id, brand, category } = useParams<{
@@ -45,11 +46,6 @@ export default function ProductsPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function descuento(price: number, discountPercentage: number) {
-    const descuento = price * (discountPercentage / 100);
-    return price - descuento;
-  }
-
   return (
     <>
       <ContentLayout>
@@ -67,9 +63,7 @@ export default function ProductsPage() {
             <Text as="del">Precio : {datos?.price}</Text>
             <Text>
               Precio con descuento :{" "}
-              {Math.floor(
-                descuento(datos?.price ?? 0, datos?.discountPercentage ?? 0)
-              ).toString()}
+              {discount(datos?.price ?? 0, datos?.discountPercentage ?? 0)}
             </Text>
             <Button onClick={() => datos && handleAddCart(datos)}>
               Añadir

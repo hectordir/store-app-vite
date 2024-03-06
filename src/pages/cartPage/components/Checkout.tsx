@@ -1,6 +1,6 @@
-import { useCart } from "../state/useCart";
-import Styles from "../pages/styles/cartProduct.module.css";
-import { useEmail } from "../state/useEmail";
+import { useCart } from "../../../states/useCart";
+import Styles from "./checkout.module.css";
+import { useEmail } from "../../../states/useEmail";
 
 export default function Checkout() {
   const { products, clearCart } = useCart();

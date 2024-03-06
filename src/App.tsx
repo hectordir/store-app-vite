@@ -1,17 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import ProductsList from "./pages/ProductsList";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ProductsList from "./pages/productList/Page";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/Navbar";
 import AboutPage from "./pages/AboutPage";
-import CartPage from "./pages/CartPage";
+import CartPage from "./pages/cartPage/Page";
 import HomePage from "./pages/HomePage";
-import ProductsPage from "./pages/ProductPage";
+import ProductsPage from "./pages/productPage/Page";
 import BrandPage from "./pages/BrandPage";
 import CategoryPage from "./pages/CategoryPage";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
-import { useCart } from "./state/useCart";
-import { useEmail } from "./state/useEmail";
+import { useCart } from "./states/useCart";
+import { useEmail } from "./states/useEmail";
 
 export function App() {
   const { syncCart } = useCart();
@@ -25,6 +24,7 @@ export function App() {
     if (email) {
       setEmail(email);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <BrowserRouter>

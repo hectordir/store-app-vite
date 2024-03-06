@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Styles from "./EmailInput.module.css";
-import { useEmail } from "../state/useEmail";
+import { useEmail } from "../../states/useEmail";
 
 export const EmailInput = () => {
   const [email, setEmail] = useState("");

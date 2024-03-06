@@ -1,15 +1,13 @@
-import Checkout from "../components/Checkout";
-import TotalItems from "../components/TotalItems";
-import { useCart } from "../state/useCart";
-import Styles from "./styles/cartProduct.module.css";
-import trash from "../img/trash.png";
+import Checkout from "./components/Checkout";
+import TotalItems from "../../components/Total/TotalItems";
+import { useCart } from "../../states/useCart";
+import Styles from "./components/checkout.module.css";
+import trash from "../../img/trash.png";
+import { discount } from "../../bff-utils";
 
 export default function CartProduct() {
   const { products, handleDeleteCart } = useCart();
-  function descuento(price: number, discountPercentage: number) {
-    const descuento = price * (discountPercentage / 100);
-    return price - descuento;
-  }
+
   return (
     <div className={Styles.body}>
       <div>
@@ -40,13 +38,7 @@ export default function CartProduct() {
 
               <del>${item.product.price}</del>
               <p>
-                $
-                {Math.floor(
-                  descuento(
-                    item.product.price ?? 0,
-                    item.product.discountPercentage ?? 0
-                  )
-                ).toString()}
+                ${discount(item.product.price, item.product.discountPercentage)}
               </p>
               <button
                 onClick={() => handleDeleteCart(index)}

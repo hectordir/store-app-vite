@@ -1,5 +1,5 @@
 import { HStack } from "@chakra-ui/layout";
-import star2 from "../img/star2.png";
+import star2 from "../../img/star2.png";
 import Styles from "./Rating.module.css";
 
 interface RatingProps {
