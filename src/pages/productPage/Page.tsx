@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Producto } from "../../interfaces/productos";
+import { Product } from "../../interfaces/productos";
 import Rating from "../../components/Rating/Rating";
 import { useCart } from "../../states/useCart";
 import { Box, VStack, Text } from "@chakra-ui/layout";
@@ -16,7 +16,7 @@ export default function ProductsPage() {
     brand: string;
     category: string;
   }>();
-  const [datos, setDatos] = useState<Producto | null>(null);
+  const [datos, setDatos] = useState<Product | null>(null);
 
   const { handleAddCart } = useCart();
 
@@ -30,7 +30,7 @@ export default function ProductsPage() {
         const data = res.data;
         if (brand) {
           const formatedData = data.filter(
-            (product: Producto) => product.brand === brand
+            (product: Product) => product.brand === brand
           );
           setDatos(formatedData);
         } else {

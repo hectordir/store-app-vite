@@ -1,29 +1,32 @@
-import { Stack } from "@chakra-ui/react";
-import { Text, Image, Box } from "@chakra-ui/react";
+import { Stack, Image, Box, Text } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
 interface BodyProps {
-  id: number;
-  title: string;
-  thumbnail: string;
-  brand: string;
+  body: {
+    id: number;
+    title: string;
+    thumbnail: string;
+    brand: string;
+    category: string;
+  };
 }
 
-const Body = ({ value }: BodyProps) => {
+export const ProductBody = ({ body }: BodyProps) => {
+  const { id, title, thumbnail, brand, category } = body;
   return (
     <>
       <Stack>
         <Image
-          src={producto.thumbnail}
-          alt={producto.title}
+          src={thumbnail}
+          alt={title}
           borderRadius="lg"
           w="260px"
           h="200px"
         />
         <Stack mt="6" spacing="3">
           <Box w="260px" h="140px" borderRadius="lg" pl="5px" pt="5px">
-            <Text>{producto.category}</Text>
-            <NavLink to={`/products/${producto.id}`}>
+            <Text>{category}</Text>
+            <NavLink to={`/products/${id}`}>
               <Text
                 fontWeight={"bold"}
                 textDecoration={"underline"}
@@ -32,18 +35,13 @@ const Body = ({ value }: BodyProps) => {
                   color: "gray.500",
                 }}
               >
-                {producto.title}
+                {title}
               </Text>
             </NavLink>
-            <Text>{producto.brand}</Text>
+            <Text>{brand}</Text>
           </Box>
         </Stack>
       </Stack>
     </>
   );
 };
-/* 
-
-
-
-*/

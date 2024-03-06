@@ -1,15 +1,15 @@
 import { create } from "zustand";
-import { Producto } from "../interfaces/productos"; // Add missing import statement for "Producto" interface
+import { Product } from "../interfaces/productos"; // Add missing import statement for "Producto" interface
 
 interface GroupedProducts {
   count: number;
-  product: Producto;
+  product: Product;
 }
 
 type Cart = {
   count: number;
   products: GroupedProducts[];
-  handleAddCart: (product: Producto) => void;
+  handleAddCart: (product: Product) => void;
   handleDeleteCart: (id: number) => void;
   syncCart: (products: GroupedProducts[]) => void;
   clearCart: () => void;

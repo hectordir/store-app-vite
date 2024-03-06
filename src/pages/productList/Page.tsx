@@ -1,36 +1,17 @@
-import { Producto } from "../../interfaces/productos";
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import Rating from "../../components/Rating/Rating";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Product } from "../../interfaces/productos";
+import { useEffect } from "react";
 import { useCart } from "../../states/useCart";
-import { discount, getProducts } from "../../bff-utils";
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  Image,
-  Stack,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
 import { ContentLayout } from "../../components/BasePage";
-import Body from "./components/Body";
+import { ProductCard } from "./components/ProductCard";
+import { useProducts } from "../../hooks/useProduct";
 
 export default function ProductsList() {
-  const [datos, setDatos] = useState<Producto[]>([]);
   const { handleAddCart } = useCart();
-
-  const cardBg = useColorModeValue("white", "#555555");
-
-  async function getData() {
-    const productos = await getProducts();
-    setDatos(productos);
-  }
+  const { products, fetchProducts } = useProducts();
 
   useEffect(() => {
-    getData();
+    fetchProducts();
   }, []);
 
   return (
@@ -42,10 +23,8 @@ export default function ProductsList() {
       p="10px"
       overflow={"scroll"}
     >
-      {datos.map((producto: Producto) => (
-        <Card maxW="sm" backgroundColor={cardBg} boxShadow={"md"}>
-          <Body />
-        </Card>
+      {products.map((producto: Product) => (
+        <ProductCard {...producto} />
       ))}
     </ContentLayout>
   );
