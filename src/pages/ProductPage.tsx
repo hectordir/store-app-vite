@@ -4,9 +4,10 @@ import { useParams } from "react-router-dom";
 import { Producto } from "../interfaces/productos";
 import Rating from "../components/Rating";
 import { useCart } from "../state/useCart";
-import { Box, VStack, Stack, Text } from "@chakra-ui/layout";
+import { Box, VStack, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { Button } from "@chakra-ui/button";
+import { ContentLayout } from "../components/BasePage";
 
 export default function ProductsPage() {
   const { id, brand, category } = useParams<{
@@ -51,13 +52,7 @@ export default function ProductsPage() {
 
   return (
     <>
-      <Stack
-        direction="row"
-        flexWrap="wrap"
-        spacing={4}
-        justifyContent="center"
-        backgroundColor="#333333"
-      >
+      <ContentLayout>
         <VStack bg="#555555" p="5px 50px 5px">
           <Text>Producto Numero : #{id}</Text>
           <Box color="white">
@@ -81,7 +76,7 @@ export default function ProductsPage() {
             </Button>
           </Box>
         </VStack>
-      </Stack>
+      </ContentLayout>
     </>
   );
 }
