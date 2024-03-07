@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Product } from "../interfaces/productos";
-import { getProducts } from "../bff-utils";
+import { getProducts, getProductbyId } from "../bff-utils";
 
 export const useProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -12,3 +12,15 @@ export const useProducts = () => {
 
   return { products, fetchProducts };
 };
+
+export const useProduct = () =>{
+  const [product, setProducts] = useState<Product>();
+  
+  async function fetchProduct(id:string) {
+    const productResult = await getProductbyId(id)
+    console.log(productResult)
+    setProducts(productResult)    
+  }
+
+  return{product, fetchProduct}
+}

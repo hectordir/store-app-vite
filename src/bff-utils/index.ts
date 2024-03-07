@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Product } from "../interfaces/productos";
 
+
 export const discount = (price: number, discountPercentage: number) => {
   const descuento = price * (discountPercentage / 100);
   return Math.floor(price - descuento).toString();
@@ -18,7 +19,7 @@ export const getProducts = async () => {
   }
 };
 
-export const getProductbyId = async (id: number) => {
+export const getProductbyId = async (id: string) => {
   try {
     const res = await axios.get(`https://dummyjson.com/products/${id}`);
     const data = res.data;

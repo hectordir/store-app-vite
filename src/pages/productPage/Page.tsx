@@ -4,19 +4,27 @@ import { ContentLayout } from "../../components/BasePage";
 import { ProductDetailsHeader } from "./components/ProductDetailsHeader";
 import { ProductDetailsBody } from "./components/ProductDetailsBody";
 import { ProductDetailsFooter } from "./components/ProductDetailsFooter";
-import { useProducts } from "../../hooks/useProduct";
+import { useProduct } from "../../hooks/useProduct";
 import { Product } from "../../interfaces/productos";
+import { useParams } from "react-router-dom";
 
 export default function ProductsPage(props: Product) {
-  const { fetchProducts } = useProducts();
+  const { fetchProduct } = useProduct();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    fetchProducts();
+    if (id) {
+      fetchProduct(id);
+    } else {
+      {
+        console.log("error fetching");
+      }
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {
-    id,
     title,
     thumbnail,
     brand,
@@ -45,12 +53,21 @@ export default function ProductsPage(props: Product) {
       <ContentLayout>
         <VStack bg="#555555" p="5px 50px 5px">
           <Box color="white">
-            <ProductDetailsHeader header={headerProps} />
-            <ProductDetailsBody body={bodyProps} />
-            <ProductDetailsFooter {...props} />
+            <ProductDetailsHeader
+              header={{ ...headerProps, id: Number(headerProps.id) }}
+            />
+            <ProductDetailsBody {...bodyProps} />
+            <ProductDetailsFooter />
           </Box>
         </VStack>
       </ContentLayout>
     </>
   );
 }
+/*
+const { id, brand, category } = useParams<{
+  id: string;
+  brand: string;
+  category: string;
+}>();
+*/

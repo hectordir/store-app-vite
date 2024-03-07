@@ -2,41 +2,25 @@ import { Box, Text } from "@chakra-ui/layout";
 import Rating from "../../../components/Rating/Rating";
 import { VStack } from "@chakra-ui/react";
 import { discount } from "../../../bff-utils";
+import { useProduct } from "../../../hooks/useProduct";
 
-interface BodyProps {
-  body: {
-    id: number;
-    title: string;
-    thumbnail: string;
-    brand: string;
-    category: string;
-    description: string;
-    price: number;
-    discountPercentage: number;
-    rating: number;
-  };
-}
-export const ProductDetailsBody = ({ body }: BodyProps) => {
-  const {
-    description,
-    title,
-    brand,
-    category,
-    price,
-    discountPercentage,
-    rating,
-  } = body;
+export const ProductDetailsBody = () => {
+  const { product } = useProduct();
+  console.log(product);
   return (
     <VStack>
-      <Text>{title}</Text>
-      <Text>Descripcion : {description}</Text>
-      <Text>Marca : {brand}</Text>
-      <Text>Categoria : {category}</Text>
+      <Text>{product?.title}</Text>
+      <Text>Descripcion : {product?.description}</Text>
+      <Text>Marca : {product?.brand}</Text>
+      <Text>Categoria : {product?.category}</Text>
       <Box>
-        <Rating value={rating} />
+        <Rating value={product?.rating ?? 0} />
       </Box>
-      <Text as="del">Precio : ${price}</Text>
-      <Text>Precio con descuento : ${discount(price, discountPercentage)}</Text>
+      <Text as="del">Precio : ${product?.price}</Text>
+      <Text>
+        Precio con descuento : $
+        {discount(product?.price ?? 0, product?.discountPercentage ?? 0)}
+      </Text>
     </VStack>
   );
 };
