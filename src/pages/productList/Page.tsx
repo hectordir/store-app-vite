@@ -1,17 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Product } from "../../interfaces/productos";
 import { useEffect } from "react";
-import { useCart } from "../../states/useCart";
 import { ContentLayout } from "../../components/BasePage";
 import { ProductCard } from "./components/ProductCard";
 import { useProducts } from "../../hooks/useProduct";
 
 export default function ProductsList() {
-  const { handleAddCart } = useCart();
   const { products, fetchProducts } = useProducts();
 
   useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

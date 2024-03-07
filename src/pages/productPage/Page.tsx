@@ -1,73 +1,53 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Product } from "../../interfaces/productos";
-import Rating from "../../components/Rating/Rating";
-import { useCart } from "../../states/useCart";
-import { Box, VStack, Text } from "@chakra-ui/layout";
-import { Image } from "@chakra-ui/image";
-import { Button } from "@chakra-ui/button";
+import { useEffect } from "react";
+import { Box, VStack } from "@chakra-ui/layout";
 import { ContentLayout } from "../../components/BasePage";
-import { discount } from "../../bff-utils";
+import { ProductDetailsHeader } from "./components/ProductDetailsHeader";
+import { ProductDetailsBody } from "./components/ProductDetailsBody";
+import { ProductDetailsFooter } from "./components/ProductDetailsFooter";
+import { useProducts } from "../../hooks/useProduct";
+import { Product } from "../../interfaces/productos";
 
-export default function ProductsPage() {
-  const { id, brand, category } = useParams<{
-    id: string;
-    brand: string;
-    category: string;
-  }>();
-  const [datos, setDatos] = useState<Product | null>(null);
-
-  const { handleAddCart } = useCart();
+export default function ProductsPage(props: Product) {
+  const { fetchProducts } = useProducts();
 
   useEffect(() => {
-    async function getData() {
-      try {
-        const url = category
-          ? `https://dummyjson.com/products/category/${category}`
-          : `https://dummyjson.com/products/${id}`;
-        const res = await axios.get(url);
-        const data = res.data;
-        if (brand) {
-          const formatedData = data.filter(
-            (product: Product) => product.brand === brand
-          );
-          setDatos(formatedData);
-        } else {
-          setDatos(data);
-        }
-
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getData();
+    fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const {
+    id,
+    title,
+    thumbnail,
+    brand,
+    category,
+    description,
+    price,
+    discountPercentage,
+    rating,
+  } = props;
+
+  const headerProps = { title, thumbnail, id };
+  const bodyProps = {
+    id,
+    title,
+    thumbnail,
+    brand,
+    category,
+    description,
+    price,
+    discountPercentage,
+    rating,
+  };
 
   return (
     <>
       <ContentLayout>
         <VStack bg="#555555" p="5px 50px 5px">
-          <Text>Producto Numero : #{id}</Text>
           <Box color="white">
-            <Image src={datos?.thumbnail} alt="Iphone 9" />
-            <Text>{datos?.title}</Text>
-            <Text>Descripcion : {datos?.description}</Text>
-            <Text>Marca : {datos?.brand}</Text>
-            <Text>Categoria : {datos?.category}</Text>
-            <Box>
-              <Rating value={Number(datos?.rating.toFixed(0))} />
-            </Box>
-            <Text as="del">Precio : {datos?.price}</Text>
-            <Text>
-              Precio con descuento :{" "}
-              {discount(datos?.price ?? 0, datos?.discountPercentage ?? 0)}
-            </Text>
-            <Button onClick={() => datos && handleAddCart(datos)}>
-              Añadir
-            </Button>
+            <ProductDetailsHeader header={headerProps} />
+            <ProductDetailsBody body={bodyProps} />
+            <ProductDetailsFooter {...props} />
           </Box>
         </VStack>
       </ContentLayout>
