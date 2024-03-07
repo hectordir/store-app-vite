@@ -19,11 +19,11 @@ export const getProducts = async () => {
   }
 };
 
-export const getProductbyId = async (id: string) => {
+export const getProductbyId = async (id: number) => {
   try {
     const res = await axios.get(`https://dummyjson.com/products/${id}`);
     const data = res.data;
-    const productos: Product = data.products;
+    const productos: Product = data;
     return productos;
   } catch (error) {
     console.error("Error fetching data", error);
