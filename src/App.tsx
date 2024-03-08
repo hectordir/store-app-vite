@@ -11,6 +11,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { useCart } from "./states/useCart";
 import { useEmail } from "./states/useEmail";
+import CheckoutPage from "./pages/checkoutPage/Page";
 
 export function App() {
   const { syncCart } = useCart();
@@ -37,6 +38,7 @@ export function App() {
         <Route path="/products/category/:category" element={<CategoryPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>

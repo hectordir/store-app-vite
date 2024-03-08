@@ -3,17 +3,17 @@ import carrito from "../img/carrito.png";
 import logo from "../img/logo.png";
 import { useCart } from "../states/useCart";
 import { EmailInput } from "./EmailInput/EmailInput";
-import { Button, useColorMode } from "@chakra-ui/react";
+import { Button, useColorMode, Box, Text, Image } from "@chakra-ui/react";
 import { FiMoon, FiSun } from "react-icons/fi";
 export default function Navbar() {
   const { count } = useCart();
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <nav className="navbar bg-primary">
+    <Box className="navbar bg-primary">
       <EmailInput />
-      <div className="container">
+      <Box className="container">
         <NavLink to="/" className="navbar-brand">
-          <img
+          <Image
             src={logo}
             alt="logo"
             className="mx-4"
@@ -27,8 +27,8 @@ export default function Navbar() {
           About
         </NavLink>
         <NavLink to="/cart" className="navbar-brand">
-          <p style={{ paddingLeft: "50px" }}>{count}</p>
-          <img
+          <Text style={{ paddingLeft: "50px" }}>{count}</Text>
+          <Image
             src={carrito}
             alt="carrito"
             className="mx-4 "
@@ -39,7 +39,7 @@ export default function Navbar() {
           {" "}
           {colorMode === "light" ? <FiMoon /> : <FiSun />}
         </Button>
-      </div>
-    </nav>
+      </Box>
+    </Box>
   );
 }

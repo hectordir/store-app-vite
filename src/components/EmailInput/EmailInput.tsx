@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Styles from "./EmailInput.module.css";
 import { useEmail } from "../../states/useEmail";
+import { Box, Text, Input, Button } from "@chakra-ui/react";
 
 export const EmailInput = () => {
   const [email, setEmail] = useState("");
@@ -26,11 +27,13 @@ export const EmailInput = () => {
   return (
     <>
       {onOpen && (
-        <div className={Styles.emailInputContainer}>
-          <p>Ingresar email</p>
-          <input onChange={handleSetEmail} type="text" />
-          <button onClick={handleSubmit}>Aceptar</button>
-        </div>
+        <Box className={Styles.emailInputContainer}>
+          <Text>Ingresar email</Text>
+          <Input placeholder="Email" onChange={handleSetEmail} />
+          <Button colorScheme="teal" size="lg" onClick={handleSubmit}>
+            Aceptar
+          </Button>
+        </Box>
       )}
     </>
   );

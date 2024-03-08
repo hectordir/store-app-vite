@@ -30,10 +30,7 @@ export const useProduct = () =>{
   async function fetchProduct(id:number) {
     const productResult = await getProductbyId(id)
     if(product){
-      // setProduct(state=>(  {...state, productResult})) 
       setProduct(productResult)   
-      console.log('',product)
-      console.log('productResult ', productResult)
     }
   }
 

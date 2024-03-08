@@ -1,55 +1,63 @@
-import Checkout from "./components/Checkout";
-import TotalItems from "../../components/Total/TotalItems";
+import CartSummary from "./components/cartSummary/CartSummary";
+import ItemsList from "./components/ItemsList/ItemsList";
 import { useCart } from "../../states/useCart";
-import Styles from "./components/checkout.module.css";
+import Styles from "./components/cartSummary/CartSummary.module.css";
 import trash from "../../img/trash.png";
 import { discount } from "../../bff-utils";
+import { Box, Button, HStack, Image, Text } from "@chakra-ui/react";
 
 export default function CartProduct() {
   const { products, handleDeleteCart } = useCart();
 
   return (
-    <div className={Styles.body}>
-      <div>
-        <div className={Styles.checkout}>
+    <Box className={Styles.body}>
+      <Box>
+        <HStack style={{ float: "right" }}>
           {products.length > 0 ? (
-            <div>
-              <Checkout />
-            </div>
+            <Box marginRight="40" marginTop="10">
+              <CartSummary />
+            </Box>
           ) : null}
-        </div>
-        {products.map((item, index) => (
-          <div className={Styles.block}>
-            <p className={Styles.Total}>
-              <TotalItems />
-            </p>
-            <div>
-              <img
-                src={item.product.thumbnail}
-                alt={item.product.title}
-                className={Styles.img}
-              />
-            </div>
+        </HStack>
+        <Box overflowY="auto" maxH="86vh" maxW="1000px">
+          {products.map((item, index) => (
+            <Box className={Styles.block}>
+              <Text className={Styles.Total}>
+                <ItemsList />
+              </Text>
+              <Box>
+                <Image
+                  src={item.product.thumbnail}
+                  alt={item.product.title}
+                  className={Styles.img}
+                />
+              </Box>
 
-            <div className={Styles.info}>
-              <p>{item.product.title}</p>
+              <Box className={Styles.info}>
+                <Text>{item.product.title}</Text>
 
-              <p>{item.product.brand}</p>
+                <Text>{item.product.brand}</Text>
 
-              <del>${item.product.price}</del>
-              <p>
-                ${discount(item.product.price, item.product.discountPercentage)}
-              </p>
-              <button
-                onClick={() => handleDeleteCart(index)}
-                className={Styles.button}
-              >
-                <img src={trash} alt="basura" className={Styles.trash} />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+                <Text as="del">${item.product.price}</Text>
+                <Text>
+                  $
+                  {discount(
+                    item.product.price,
+                    item.product.discountPercentage
+                  )}
+                </Text>
+
+                <Button
+                  onClick={() => handleDeleteCart(index)}
+                  className={Styles.button}
+                >
+                  <Image src={trash} alt="trash" className={Styles.trash} />
+                </Button>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      </Box>
+    </Box>
   );
 }
